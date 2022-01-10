@@ -4,7 +4,13 @@ import ReactDOM from 'react-dom';
 import TodoList from './components/TodoList';
 import TodoForm from './components/TodoForm';
 
-const tasks = [];
+const tasks = [
+  {
+    taskName: 'finish app',
+    id: 1234,
+    completed:false
+  }
+];
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -17,21 +23,23 @@ class App extends React.Component {
     };
   }
 
-  handleCompletedTask = () => {
+  handleClearCompleted = () => {
+
     this.setState({
       ...this.state,
-      tasks: this.state.tasks.filter(item => {
+      tasks: this.state.tasks.filter(task => {
         return !task.completed;
       })
     });
   }
 
   handleAddTask = (taskName) => {
+
     const newTask = {
       taskName: taskName,
       id: Date.now(), 
       completed:false
-    }
+    };
 
     this.setState({
       ...this.state,
@@ -52,8 +60,9 @@ class App extends React.Component {
         } else {
           return task;
         }
+
       })
-    })
+    });
   }
 
   render() {
