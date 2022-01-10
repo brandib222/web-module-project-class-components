@@ -1,6 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-const todos = [];
+import TodoList from './components/TodoList';
+import TodoForm from './components/TodoForm';
+
+const tasks = [];
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -9,14 +13,14 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      todos: todos
+      tasks: tasks
     };
   }
 
   handleCompletedTask = () => {
     this.setState({
       ...this.state,
-      todos: this.state.todos.filter(item => {
+      tasks: this.state.tasks.filter(item => {
         return !task.completed;
       })
     });
@@ -31,7 +35,7 @@ class App extends React.Component {
 
     this.setState({
       ...this.state,
-      todos: [...this.state.todos, newTask]
+      tasks: [...this.state.tasks, newTask]
     });
   }
 
@@ -39,7 +43,7 @@ class App extends React.Component {
 
     this.setState({
       ...this.state, 
-      todos: this.state.todos.map(task => {
+      tasks: this.state.tasks.map(task => {
         if(task.id === selectedTask.id) {
           return({
             ...item, 
@@ -54,8 +58,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <h2>Welcome to your Todo App!</h2>
+      <div className='App'>
+        <div className='header'>
+          <h2>To Do List</h2>
+          <TodoForm handleAddTask={this.handleAddTask} />
+        </div>
+        <TodoList handleToggleTask={this.handleToggleTask} tasks={this.state.tasks} />
+        <button onClick={this.handleClearCompleted} className='clearBtn'>Clear Completed</button>
       </div>
     );
   }
